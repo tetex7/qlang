@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 public class QlangInstruction
 {
-    static QlangInstruction of(InstructionWork code)
+    public static QlangInstruction of(InstructionWork code)
     {
         return new QlangInstruction(code);
     }
