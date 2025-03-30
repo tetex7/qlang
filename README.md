@@ -16,7 +16,9 @@ along with this program.  If not, see "https://www.gnu.org/licenses/"
 --?>
 # Quick language AKA Qlang
 It's just an over glorified rapper around regex<br>
-Was written in Kotlin ported over the Java for minecraft mod<br>
-Which also comes with the mod's grand kotlin phase out of any kotlin code within its code base
+Was written in Kotlin ported over the Java for my minecraft mod<br>
+
 <br><br>
 Also this may never get updates because well it's pretty cut and dry 
+
+# This code base Is edited with the requirements of my [Minecraft mod](https://github.com/tetex7/HudMan) in mind
