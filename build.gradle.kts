@@ -30,6 +30,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
+    implementation("org.jetbrains:annotations:24.0.0")
     implementation("org.apache.commons:commons-lang3:3.12.0")
 }
 

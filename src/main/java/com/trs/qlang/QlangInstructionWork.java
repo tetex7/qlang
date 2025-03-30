@@ -17,12 +17,10 @@
 
 package com.trs.qlang;
 
-public class QlangStandardTags
+import java.util.regex.Pattern;
+
+@FunctionalInterface
+public interface QlangInstructionWork
 {
-    public final static String H_HOUR = "%h%";
-    public final static String H_MIUNTE = "%m%";
-    public final static String H_SECOND = "%s%";
-    public final static String H_DAY = "%d%";
-    public final static String H_MOUTH = "%mm%";
-    public final static String H_YEAR = "%y%";
+    String work(String tag, Pattern pattern);
 }

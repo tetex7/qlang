@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024  Tete
+ * Copyright (C) 2025  Tete
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,30 +17,27 @@
 
 package com.trs.qlang;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
-public class QlangInstruction
+public class QlangInstruction implements QlangInstructionWork
 {
-    public static QlangInstruction of(InstructionWork code)
+    public static QlangInstruction of(QlangInstructionWork code)
     {
         return new QlangInstruction(code);
     }
 
-    @FunctionalInterface
-    public interface InstructionWork
-    {
-        String work(String tag, Pattern pattern);
-    }
-
-    protected final InstructionWork getCode()
+    protected final @Nullable QlangInstructionWork getCode()
     {
         return code;
     }
 
-    private final InstructionWork code;
+    private final @Nullable QlangInstructionWork code;
 
-    public String run(String tag, Pattern pattern, String ctxt)
+    @Override
+    public String work(String tag, Pattern pattern)
     {
         if (code == null)
         {
@@ -49,7 +46,7 @@ public class QlangInstruction
         return code.work(tag, pattern);
     }
 
-    public QlangInstruction(InstructionWork code)
+    public QlangInstruction(@Nullable QlangInstructionWork code)
     {
         this.code = code;
     }
@@ -57,6 +54,7 @@ public class QlangInstruction
     @Override
     public int hashCode()
     {
-        return ThreadLocalRandom.current().nextInt();
+        if (code != null) return code.hashCode();
+        else return System.identityHashCode(this);
     }
 }
