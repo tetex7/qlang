@@ -16,11 +16,12 @@
  */
 
 plugins {
-    id("java")
+    `java-library`
+    `maven-publish`
 }
 
-group = "com.trs.qlang"
-version = "1.0-SNAPSHOT"
+group = project.property("maven_group") as String
+version = project.property("version") as String
 
 repositories {
     mavenCentral()
@@ -36,4 +37,37 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+java {
+    withSourcesJar()
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/${System.getenv("GITHUB_USERNAME")}/${project.property("archives_base_name") as String}")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME") ?: throw RuntimeException("Github username environment variable is null")
+                password = System.getenv("GITHUB_MAVEN_TOKEN") ?: throw RuntimeException("Github Maven token environment variable is null")
+            }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            groupId = "com.trs"
+            artifactId = project.property("archives_base_name") as String
+            version = project.version as String
+
+            from(components["java"])
+
+            pom {
+                name = "Qlang"
+                description = "A Overly complicated regex rapper"
+                url = "http://www.github.com/tetex7/qlang"
+            }
+        }
+    }
 }
